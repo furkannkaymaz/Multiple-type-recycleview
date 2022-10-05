@@ -1,2 +1,2 @@
 
-## RecycleView project with multiple view type 
+### RecycleView project with multiple view type 
