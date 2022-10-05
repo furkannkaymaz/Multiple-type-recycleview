@@ -2,6 +2,7 @@ package com.example.multiple_recyclerview.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.multiple_recyclerview.model.News
 import com.example.multiple_recyclerview.model.NewsType
@@ -10,8 +11,9 @@ import com.example.multiple_recyclerview.databinding.ItemMiddleBinding
 import com.example.multiple_recyclerview.databinding.ItemShortBinding
 
 class NewsAdapter(
-    private val list: List<News>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var list: List<News> = emptyList()
 
     private lateinit var bindingItemShortBinding: ItemShortBinding
     private lateinit var bindingItemMiddleBinding: ItemMiddleBinding
@@ -47,7 +49,6 @@ class NewsAdapter(
             }
         }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         when (list[position].type) {
@@ -81,5 +82,13 @@ class NewsAdapter(
                 0
             }
         }
+
+    fun setData(newWordList: List<News>) {
+        val diffUtil = NewsDiffUtil(list, newWordList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        list = newWordList
+        diffResults.dispatchUpdatesTo(this)
+    }
+
 
 }

@@ -10,6 +10,7 @@ import com.example.multiple_recyclerview.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val newsAdapter by lazy { NewsAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +18,24 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        setAdapter()
 
-        binding.rvNews.adapter = NewsAdapter(DummyData.getTata(this))
-        binding.rvNews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        newsAdapter.setData(DummyData.getTata())
+
+        binding.btnAddMore.setOnClickListener {
+
+            binding.btnAddMore.setOnClickListener {
+                newsAdapter.setData(DummyData.getTataMore())
+            }
+        }
+
+    }
+
+    private fun setAdapter() {
+
+        binding.rvNews.adapter = newsAdapter
+        binding.rvNews.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
     }
 }

@@ -5,18 +5,21 @@ import com.example.multiple_recyclerview.model.News
 import com.example.multiple_recyclerview.model.NewsType
 
 object DummyData {
-    fun getTata(context: Context): List<News> {
+    fun getTata(): List<News> {
         val newsList = arrayListOf<News>()
 
         val news = News(
+            1,
             NewsType.SHORT.value,
             "Kısa tipte bir haber",
         )
         val news2 = News(
+            2,
             NewsType.MIDDLE.value,
             "Orta tipte bir haber",
         )
         val news3 = News(
+            3,
             NewsType.HUGE.value,
             "Uzun tipte bir haber",
         )
@@ -24,15 +27,44 @@ object DummyData {
         newsList.add(news)
         newsList.add(news2)
         newsList.add(news3)
-        newsList.add(news2)
+
+
+        return newsList
+
+    }
+
+    fun getTataMore(): List<News> {
+        val newsList = arrayListOf<News>()
+
+        val news = News(
+            1,
+            NewsType.SHORT.value,
+            "Kısa tipte bir haber",
+        )
+        val news2 = News(
+            2,
+            NewsType.MIDDLE.value,
+            "Orta tipte bir haber",
+        )
+        val news3 = News(
+            3,
+            NewsType.HUGE.value,
+            "Uzun tipte bir haber",
+        )
+        val news4 = News(
+            4,
+            NewsType.MIDDLE.value,
+            "Orta tipte bir haber",
+        )
+
+        newsList.add(news)
         newsList.add(news2)
         newsList.add(news3)
-        newsList.add(news)
-        newsList.add(news3)
-        newsList.add(news)
-        newsList.add(news2)
+        newsList.add(news4)
+
 
         return newsList
 
     }
 }
+
