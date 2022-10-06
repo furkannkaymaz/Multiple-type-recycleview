@@ -15,6 +15,7 @@ import com.example.multiple_recyclerview.databinding.ItemShortBinding
 import com.example.multiple_recyclerview.util.showToast
 
 class NewsAdapter(
+    val onClickAdapter: ((News) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<News>() {
@@ -68,15 +69,16 @@ class NewsAdapter(
             NewsType.SHORT.value -> {
                 (holder as ShortNewsViewHolder).bind(differ.currentList[position]) {
                     holder.itemView.context showToast it.id.toString()
+                    onClickAdapter?.let { it1 -> it1(it) }
                 }
             }
             NewsType.MIDDLE.value -> {
-                (holder as MiddleViewHolder).bind(differ.currentList[position]){
+                (holder as MiddleViewHolder).bind(differ.currentList[position]) {
                     holder.itemView.context showToast it.id.toString()
                 }
             }
             NewsType.HUGE.value -> {
-                (holder as HugeViewHolder).bind(differ.currentList[position]){
+                (holder as HugeViewHolder).bind(differ.currentList[position]) {
                     holder.itemView.context showToast it.id.toString()
                 }
             }
@@ -101,14 +103,12 @@ class NewsAdapter(
             }
         }
 
-
 /*  fun setData(newNewsList: List<News>) {
       val diffUtil = NewsDiffUtil(list, newNewsList)
       val diffResults = DiffUtil.calculateDiff(diffUtil)
       list = newNewsList
       diffResults.dispatchUpdatesTo(this)
   }*/
-
 
 
 }
