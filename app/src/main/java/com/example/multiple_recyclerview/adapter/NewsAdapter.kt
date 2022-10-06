@@ -1,7 +1,9 @@
 package com.example.multiple_recyclerview.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.multiple_recyclerview.model.News
@@ -9,16 +11,18 @@ import com.example.multiple_recyclerview.model.NewsType
 import com.example.multiple_recyclerview.databinding.ItemHugeBinding
 import com.example.multiple_recyclerview.databinding.ItemMiddleBinding
 import com.example.multiple_recyclerview.databinding.ItemShortBinding
+import com.example.multiple_recyclerview.util.showToast
 
 class NewsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var list: List<News> = emptyList()
 
+    var onItemClick: ((News) -> Unit)? = null
+
     private lateinit var bindingItemShortBinding: ItemShortBinding
     private lateinit var bindingItemMiddleBinding: ItemMiddleBinding
     private lateinit var bindingItemHugeBinding: ItemHugeBinding
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
@@ -50,19 +54,26 @@ class NewsAdapter(
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         when (list[position].type) {
             NewsType.SHORT.value -> {
-                (holder as ShortNewsViewHolder).bind(list[position])
+                (holder as ShortNewsViewHolder).bind(list[position]) {
+                    list = listOf(it)
+                    holder.itemView.context showToast it.header
+                }
             }
             NewsType.MIDDLE.value -> {
-                (holder as MiddleViewHolder).bind(list[position])
+                (holder as MiddleViewHolder).bind(list[position]){
+                    list = listOf(it)
+                    holder.itemView.context showToast it.header
+                }
             }
             NewsType.HUGE.value -> {
-                (holder as HugeViewHolder).bind(list[position])
+                (holder as HugeViewHolder).bind(list[position]){
+                    list = listOf(it)
+                    holder.itemView.context showToast it.header
+                }
             }
         }
-
     }
 
     override fun getItemCount(): Int = list.size
@@ -83,12 +94,11 @@ class NewsAdapter(
             }
         }
 
-    fun setData(newWordList: List<News>) {
-        val diffUtil = NewsDiffUtil(list, newWordList)
+    fun setData(newNewsList: List<News>) {
+        val diffUtil = NewsDiffUtil(list, newNewsList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
-        list = newWordList
+        list = newNewsList
         diffResults.dispatchUpdatesTo(this)
     }
-
 
 }

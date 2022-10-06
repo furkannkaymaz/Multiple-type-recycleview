@@ -10,8 +10,13 @@ class MiddleViewHolder(
     private val binding: ItemMiddleBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(news: News) {
-        binding.tvHeader.text = news.header
-        binding.llContainer.setBackgroundColor(ContextCompat.getColor(binding.tvHeader.context, R.color.middleColor))
+    fun bind(news: News,onItemClick: ((News) -> Unit)? = null) {
+        with(binding){
+            tvHeader.text = news.header
+            llContainer.setBackgroundColor(ContextCompat.getColor(binding.tvHeader.context, R.color.middleColor))
+            llContainer.setOnClickListener {
+                onItemClick?.invoke(news)
+            }
+        }
     }
 }

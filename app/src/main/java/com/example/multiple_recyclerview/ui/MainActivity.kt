@@ -20,13 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         setAdapter()
 
-        newsAdapter.setData(DummyData.getTata())
+        newsAdapter.setData(DummyData.getData())
 
         binding.btnAddMore.setOnClickListener {
-
-            binding.btnAddMore.setOnClickListener {
-                newsAdapter.setData(DummyData.getTataMore())
-            }
+            newsAdapter.setData(DummyData.getDataMore())
         }
 
     }

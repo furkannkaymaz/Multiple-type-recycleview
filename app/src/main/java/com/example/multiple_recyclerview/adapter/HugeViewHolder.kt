@@ -10,8 +10,15 @@ class HugeViewHolder(
     private val binding: ItemHugeBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(news: News) {
-        binding.tvHeader.text = news.header
-        binding.llContainer.setBackgroundColor(ContextCompat.getColor(binding.tvHeader.context, R.color.hugeColor))
+    fun bind(news: News,onItemClick: ((News) -> Unit)? = null) {
+
+        with(binding){
+            tvHeader.text = news.header
+            llContainer.setBackgroundColor(ContextCompat.getColor(binding.tvHeader.context, R.color.hugeColor))
+            llContainer.setOnClickListener {
+                onItemClick?.invoke(news)
+            }
+        }
+
     }
 }
