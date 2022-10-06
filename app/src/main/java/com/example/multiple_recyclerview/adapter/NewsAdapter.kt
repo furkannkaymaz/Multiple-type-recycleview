@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.multiple_recyclerview.model.News
@@ -16,8 +17,18 @@ import com.example.multiple_recyclerview.util.showToast
 class NewsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var list: List<News> = emptyList()
-    var onItemClick: ((News) -> Unit)? = null
+    private val diffCallback = object : DiffUtil.ItemCallback<News>() {
+        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+            return oldItem == newItem
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    fun submitList(list: List<News>) = differ.submitList(list)
 
     private lateinit var bindingItemShortBinding: ItemShortBinding
     private lateinit var bindingItemMiddleBinding: ItemMiddleBinding
@@ -53,29 +64,28 @@ class NewsAdapter(
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (list[position].type) {
+        when (differ.currentList[position].type) {
             NewsType.SHORT.value -> {
-                (holder as ShortNewsViewHolder).bind(list[position]) {
+                (holder as ShortNewsViewHolder).bind(differ.currentList[position]) {
                     holder.itemView.context showToast it.id.toString()
                 }
             }
             NewsType.MIDDLE.value -> {
-                (holder as MiddleViewHolder).bind(list[position]){
                     holder.itemView.context showToast it.id.toString()
                 }
             }
             NewsType.HUGE.value -> {
-                (holder as HugeViewHolder).bind(list[position]){
+                (holder as HugeViewHolder).bind(differ.currentList[position]){
                     holder.itemView.context showToast it.id.toString()
                 }
             }
         }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun getItemViewType(position: Int): Int =
-        when (list[position].type) {
+        when (differ.currentList[position].type) {
             0 -> {
                 NewsType.SHORT.value
             }
@@ -90,11 +100,14 @@ class NewsAdapter(
             }
         }
 
-    fun setData(newNewsList: List<News>) {
-        val diffUtil = NewsDiffUtil(list, newNewsList)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        list = newNewsList
-        diffResults.dispatchUpdatesTo(this)
-    }
+
+/*  fun setData(newNewsList: List<News>) {
+      val diffUtil = NewsDiffUtil(list, newNewsList)
+      val diffResults = DiffUtil.calculateDiff(diffUtil)
+      list = newNewsList
+      diffResults.dispatchUpdatesTo(this)
+  }*/
+
+
 
 }

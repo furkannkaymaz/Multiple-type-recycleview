@@ -3,6 +3,10 @@ package com.example.multiple_recyclerview.adapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.multiple_recyclerview.model.News
 
+
+/*
+use this for newsAdapter setData function*
+
 class NewsDiffUtil(
     private val oldList: List<News>,
     private val newList: List<News>
@@ -27,3 +31,5 @@ class NewsDiffUtil(
         }
     }
 }
+
+*/
