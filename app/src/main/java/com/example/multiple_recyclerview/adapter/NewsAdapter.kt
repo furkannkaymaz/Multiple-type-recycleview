@@ -71,6 +71,7 @@ class NewsAdapter(
                 }
             }
             NewsType.MIDDLE.value -> {
+                (holder as MiddleViewHolder).bind(differ.currentList[position]){
                     holder.itemView.context showToast it.id.toString()
                 }
             }
