@@ -17,7 +17,6 @@ class NewsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var list: List<News> = emptyList()
-
     var onItemClick: ((News) -> Unit)? = null
 
     private lateinit var bindingItemShortBinding: ItemShortBinding
@@ -57,20 +56,17 @@ class NewsAdapter(
         when (list[position].type) {
             NewsType.SHORT.value -> {
                 (holder as ShortNewsViewHolder).bind(list[position]) {
-                    list = listOf(it)
-                    holder.itemView.context showToast it.header
+                    holder.itemView.context showToast it.id.toString()
                 }
             }
             NewsType.MIDDLE.value -> {
                 (holder as MiddleViewHolder).bind(list[position]){
-                    list = listOf(it)
-                    holder.itemView.context showToast it.header
+                    holder.itemView.context showToast it.id.toString()
                 }
             }
             NewsType.HUGE.value -> {
                 (holder as HugeViewHolder).bind(list[position]){
-                    list = listOf(it)
-                    holder.itemView.context showToast it.header
+                    holder.itemView.context showToast it.id.toString()
                 }
             }
         }
