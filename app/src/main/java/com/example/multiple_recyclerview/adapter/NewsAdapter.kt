@@ -18,19 +18,6 @@ class NewsAdapter(
     val onClickAdapter: ((News) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<News>() {
-        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
-            return oldItem == newItem
-        }
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    fun submitList(list: List<News>) = differ.submitList(list)
-
     private lateinit var bindingItemShortBinding: ItemShortBinding
     private lateinit var bindingItemMiddleBinding: ItemMiddleBinding
     private lateinit var bindingItemHugeBinding: ItemHugeBinding
@@ -103,12 +90,18 @@ class NewsAdapter(
             }
         }
 
-/*  fun setData(newNewsList: List<News>) {
-      val diffUtil = NewsDiffUtil(list, newNewsList)
-      val diffResults = DiffUtil.calculateDiff(diffUtil)
-      list = newNewsList
-      diffResults.dispatchUpdatesTo(this)
-  }*/
+    private val diffCallback = object : DiffUtil.ItemCallback<News>() {
+        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+            return oldItem == newItem
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallback)
+
+    fun submitList(list: List<News>) = differ.submitList(list)
 
 
 }
