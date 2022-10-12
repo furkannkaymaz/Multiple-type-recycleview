@@ -4,7 +4,6 @@ import android.content.Context
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.multiple_recyclerview.base.BaseAdapter
 import com.example.multiple_recyclerview.model.News
@@ -12,20 +11,13 @@ import com.example.multiple_recyclerview.model.NewsType
 import com.example.multiple_recyclerview.databinding.ItemHugeBinding
 import com.example.multiple_recyclerview.databinding.ItemMiddleBinding
 import com.example.multiple_recyclerview.databinding.ItemShortBinding
+import com.example.multiple_recyclerview.util.getDiffUtilCallBack
 import com.example.multiple_recyclerview.util.showToast
 
 class NewsAdapter(
     val onClickAdapter: ((News) -> Unit)? = null,
 ) : BaseAdapter<News, RecyclerView.ViewHolder>(
-    object : DiffUtil.ItemCallback<News>() {
-        override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
-            return oldItem.id == newItem.id
-        }
-    }
+    getDiffUtilCallBack()
 ) {
     private lateinit var bindingItemShortBinding: ItemShortBinding
     private lateinit var bindingItemMiddleBinding: ItemMiddleBinding
