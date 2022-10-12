@@ -4,16 +4,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.multiple_recyclerview.model.News
 import com.example.multiple_recyclerview.R
+import com.example.multiple_recyclerview.base.BaseViewHolder
 import com.example.multiple_recyclerview.databinding.ItemShortBinding
 
 class ShortNewsViewHolder(
-    private val binding: ItemShortBinding
-) : RecyclerView.ViewHolder(binding.root) {
+    val binding: ItemShortBinding
+) : BaseViewHolder<News>(binding) {
 
-    fun bind(news: News, onItemClick: ((News) -> Unit)? = null) {
-
+    override fun bind(data: News, onItemClick: ((News) -> Unit)?) {
+        super.bind(data, onItemClick)
         with(binding) {
-            tvHeader.text = news.header
+            tvHeader.text = data.header
             llContainer.setBackgroundColor(
                 ContextCompat.getColor(
                     binding.tvHeader.context,
@@ -21,9 +22,8 @@ class ShortNewsViewHolder(
                 )
             )
             llContainer.setOnClickListener {
-                onItemClick?.invoke(news)
+                onItemClick?.invoke(data)
             }
         }
-
     }
 }
