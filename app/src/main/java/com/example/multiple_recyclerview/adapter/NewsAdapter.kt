@@ -16,7 +16,7 @@ import com.example.multiple_recyclerview.util.showToast
 
 class NewsAdapter(
     val onClickAdapter: ((News) -> Unit)? = null,
-) : BaseAdapter<News,RecyclerView.ViewHolder>(
+) : BaseAdapter<News, RecyclerView.ViewHolder>(
     object : DiffUtil.ItemCallback<News>() {
         override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
             return oldItem.id == newItem.id
@@ -38,32 +38,32 @@ class NewsAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder =
         when (viewType) {
-        NewsType.SHORT.value -> {
-            bindingItemShortBinding = ItemShortBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            ShortNewsViewHolder(bindingItemShortBinding)
-        }
-        NewsType.MIDDLE.value -> {
-            bindingItemMiddleBinding = ItemMiddleBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            MiddleViewHolder(bindingItemMiddleBinding)
-        }
-        NewsType.HUGE.value -> {
-            bindingItemHugeBinding = ItemHugeBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            HugeViewHolder(bindingItemHugeBinding)
-        }
-        else -> {
+            NewsType.SHORT.value -> {
+                bindingItemShortBinding = ItemShortBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                ShortNewsViewHolder(bindingItemShortBinding)
+            }
+            NewsType.MIDDLE.value -> {
+                bindingItemMiddleBinding = ItemMiddleBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                MiddleViewHolder(bindingItemMiddleBinding)
+            }
+            NewsType.HUGE.value -> {
+                bindingItemHugeBinding = ItemHugeBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                HugeViewHolder(bindingItemHugeBinding)
+            }
+            else -> {
 
-            bindingItemMiddleBinding = ItemMiddleBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-            MiddleViewHolder(bindingItemMiddleBinding)
+                bindingItemMiddleBinding = ItemMiddleBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                MiddleViewHolder(bindingItemMiddleBinding)
+            }
         }
-    }
 
     override fun bindView(holder: RecyclerView.ViewHolder, position: Int) {
         when (currentList[position].type) {
