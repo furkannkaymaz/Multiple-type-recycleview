@@ -1,13 +1,10 @@
 package com.example.multiple_recyclerview.adapter
 
 import android.content.Context
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.multiple_recyclerview.base.BaseAdapter
 import com.example.multiple_recyclerview.model.News
