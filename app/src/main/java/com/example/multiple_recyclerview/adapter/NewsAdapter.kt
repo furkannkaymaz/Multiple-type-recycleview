@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.multiple_recyclerview.base.BaseAdapter
 import com.example.multiple_recyclerview.model.News
 import com.example.multiple_recyclerview.model.NewsType
 import com.example.multiple_recyclerview.databinding.ItemHugeBinding
@@ -28,8 +27,8 @@ class NewsAdapter(
         parent: ViewGroup,
         inflater: LayoutInflater,
         viewType: Int
-    ): RecyclerView.ViewHolder =
-        when (viewType) {
+    ): RecyclerView.ViewHolder {
+        val viewHolder: RecyclerView.ViewHolder = when (viewType) {
             NewsType.SHORT.value -> {
                 bindingItemShortBinding = ItemShortBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
@@ -56,6 +55,8 @@ class NewsAdapter(
                 MiddleViewHolder(bindingItemMiddleBinding)
             }
         }
+        return viewHolder
+    }
 
     override fun bindView(holder: RecyclerView.ViewHolder, position: Int) {
         when (currentList[position].type) {
